@@ -1,9 +1,12 @@
 from django.db import models
 import os
+import
 
 from datetime import datetime
 
 # Create your models here.
+
+
 class User(models.Model):
     First_name = models.CharField(max_length=500)
     Last_name = models.CharField(max_length=500)
@@ -34,7 +37,7 @@ class Question(models.Model):
     User_Id= models.ForeignKey(User)
     Product_id=models.ForeignKey(category)
     timestamp = models.DateTimeField(auto_now_add=True)
-    Views=models.IntegerField()
+
 
     def __str__(self):
         return self.sub
@@ -58,3 +61,13 @@ class stats(models.Model):
 
     def __str__(self):
         return "{}.{}".format(self.comments,self.com_votes)
+class Vote(models.Model):
+    Ans_Id= models.ForeignKey(Answer)
+    User_Id=models.ForeignKey(User)
+    UP/Down=models.CharField(max_length=5)
+
+class QuestionView(models.Model):
+    question = models.ForeignKey(Question, related_name='questionviews')
+    ip = models.CharField(max_length=40)
+    session = models.CharField(max_length=40)
+    created = models.DateTimeField(default=datetime.datetime.now())
